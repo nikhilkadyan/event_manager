@@ -2,6 +2,7 @@
     z-index: 99;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 20px;
     width: calc(100vw - 40px);
     position: fixed;
@@ -13,7 +14,8 @@
     a {
         color: #ccc;
         text-decoration: none;
-        padding: 0 5px;
+        margin: 0 15px;
+        font-size: 20px;
 
         &:hover {
             color: aquamarine;
