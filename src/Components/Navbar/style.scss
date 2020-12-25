@@ -1,0 +1,26 @@
+.navbar_container {
+    z-index: 99;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    width: calc(100vw - 40px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #333;
+    color: white;
+
+    a {
+        color: #ccc;
+        text-decoration: none;
+        padding: 0 5px;
+
+        &:hover {
+            color: aquamarine;
+        }
+    }
+
+    .active {
+        color: aquamarine;
+    }
+}

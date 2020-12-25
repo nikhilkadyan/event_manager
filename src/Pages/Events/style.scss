@@ -1,0 +1,69 @@
+.event_container {
+    .day_control {
+        margin: 50px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        button {
+            border: none;
+            background: aquamarine;
+            border-radius: 4px;
+            padding: 7px 15px;
+            font-size: 15px;
+            font-weight: 300;
+            cursor: pointer;
+
+            &:disabled {
+                background: #999;
+                color: #ddd;
+            }
+        }
+
+        span {
+            border: 2px solid aquamarine;
+            box-shadow: 0 0 7px aquamarine;
+            padding: 7px 15px;
+            margin: 0 5px;
+            border-radius: 4px;
+        }
+    }
+
+    .slots_container {
+        padding: 0 2vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .slot {
+            width: 95vw;
+            max-width: 800px;
+            border-radius: 4px;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            box-shadow: 0 0 10px #ddd;
+
+            .slot_title {
+                font-size: 22px;
+                text-align: center;
+                background: #555;
+                margin-bottom: 10px;
+                padding: 10px;
+                color: white;
+                border-radius: 4px;
+                box-shadow: 0 0 10px #777;
+            }
+
+            .slot_sessions {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                .session {
+                    background: white;
+                    box-shadow: 0 0 7px #ddd;
+                    padding: 20px;
+                    margin: 7px;
+                }
+            }
+        }
+    }
+}
