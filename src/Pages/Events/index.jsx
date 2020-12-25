@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import './style.scss'
+import React, { useEffect, useState } from 'react';
+import './style.scss';
 
 import axios from 'axios';
 import api_url from '../../Service/api';
+import { FaChevronCircleLeft, FaChevronCircleRight, FaUserClock, FaMedal, FaTrophy } from 'react-icons/fa';
 
 const Events = () => {
     const [ slots, setSlots ] = useState([]);
@@ -80,20 +81,33 @@ const Events = () => {
     return (
         <div className="event_container">
             <div className="day_control">
-                <button onClick={() => prevDay()} disabled={(day === 1) ? true : false}>Prev</button>
-                <span>Day {day} {getDayName()}</span>
-                <button onClick={() => nextDay()} disabled={(day === 7) ? true : false}>Next</button>
+                <button onClick={() => prevDay()} disabled={(day === 1) ? true : false}><FaChevronCircleLeft /> <span>Prev</span></button>
+                <span className="curr_day">Day {day} {getDayName()}</span>
+                <button onClick={() => nextDay()} disabled={(day === 7) ? true : false}><span>Next</span> <FaChevronCircleRight /></button>
             </div>
             <div className="slots_container">
                 {curSlot.map((s, key) => (
                     <div key={key} className="slot">
                         <div className="slot_title">
-                            {s.slot.startHour}:{s.slot.startMinute !== 0 ? s.slot.startMinute : "00"} - {s.slot.endHour}:{s.slot.endMinute !== 0 ? s.slot.endMinute : "00"}
+                            <FaUserClock /> <span>{s.slot.startHour}:{s.slot.startMinute !== 0 ? s.slot.startMinute : "00"} - {s.slot.endHour}:{s.slot.endMinute !== 0 ? s.slot.endMinute : "00"}</span>
                         </div>
                         <div className="slot_sessions">
-                            {s.sessions.map((session, k) => (
-                                <div className="session" key={k}>
-                                    <h4>session</h4>
+                            {s.sessions.map((el, k) => (
+                                <div key={k} className="session">
+                                    {(el.content && el.content.title ) && (
+                                        <h4>
+                                            {(el.content && el.content.award === "HONORABLE_MENTION") && <FaMedal />}
+                                            {(el.content && el.content.award === "BEST_PAPER") && <FaTrophy />}
+                                            {" "}
+                                            {el.content.title}
+                                        </h4>)}
+                                    <small>
+                                        [ {el.type.name} ]
+                                        {" "}
+                                        {el.chair && ("[ By " + el.chair.name + " ]")}
+                                        {" "}
+                                        {(el.content && el.content.award !== "") && ("[ " + el.content.award + " ]")}
+                                    </small>
                                 </div>
                             ))}
                         </div>

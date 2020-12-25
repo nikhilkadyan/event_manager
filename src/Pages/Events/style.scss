@@ -6,6 +6,9 @@
         align-items: center;
 
         button {
+            outline: none;
+            display: flex;
+            align-items: center;
             border: none;
             background: aquamarine;
             border-radius: 4px;
@@ -14,13 +17,17 @@
             font-weight: 300;
             cursor: pointer;
 
+            span {
+                margin: 0 5px;
+            }
+
             &:disabled {
                 background: #999;
                 color: #ddd;
             }
         }
 
-        span {
+        .curr_day {
             border: 2px solid aquamarine;
             box-shadow: 0 0 7px aquamarine;
             padding: 7px 15px;
@@ -39,29 +46,48 @@
             max-width: 800px;
             border-radius: 4px;
             margin-bottom: 35px;
-            padding-bottom: 20px;
+            padding-bottom: 10px;
             box-shadow: 0 0 10px #ddd;
 
             .slot_title {
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 font-size: 22px;
                 text-align: center;
                 background: #555;
                 margin-bottom: 10px;
                 padding: 10px;
-                color: white;
                 border-radius: 4px;
                 box-shadow: 0 0 10px #777;
+                color: white;
+
+                span {
+                    margin-left: 7px;
+                }
             }
 
             .slot_sessions {
                 display: flex;
+                flex-direction: column;
                 flex-wrap: wrap;
                 justify-content: center;
+                padding: 10px 20px;
                 .session {
+                    display: flex;
+                    flex-direction: column;
                     background: white;
                     box-shadow: 0 0 7px #ddd;
                     padding: 20px;
-                    margin: 7px;
+                    margin: 20px;
+
+                    h4{
+                        margin: 5px 0;
+                        svg {
+                            color: crimson;
+                        }
+                    }
+                    small { font-weight: 300; }
                 }
             }
         }
