@@ -10,6 +10,7 @@ const Schedule = () => {
     const [ slots, setSlots ] = useState(null);
     const [ curSlot, setCurSlot ] = useState([]);
     const [ day, setDay ] = useState(1);
+    const [ user, setUser ] = useState(null);
 
     useEffect(() => {
         const fetchSlots = () => {
@@ -49,6 +50,10 @@ const Schedule = () => {
             } else {
                 fetchSlots();
             }
+        }
+        let user = JSON.parse(sessionStorage.getItem("user"));
+        if(user){
+            setUser(user)
         }
     }, [slots])
 
@@ -106,6 +111,42 @@ const Schedule = () => {
           });
     }
 
+    const showUpdateWindow = (data) => {
+        swal({
+            text: data.content.title,
+            content: "input",
+            button: {
+              text: "Enter new title!",
+              closeModal: false,
+            },
+        }).then(title => {
+            if (!title) throw null;
+            return axios.post(api_url + '/content/update_title', JSON.stringify({
+                token: user.token,
+                id: data.content.contentId,
+                title: title
+            }))
+        }).then(() => {
+            sessionStorage.removeItem("slots")
+            setSlots(null)
+            swal({
+                title: "Success",
+                text: "Title successfully updated",
+              });
+        }).catch(err => {
+            if (err) {
+                if(err.response && err.response.data){
+                    swal("Ops!", err.response.data, "error");
+                } else {
+                    swal("Ops!", "The AJAX request failed!", "error");
+                }
+              } else {
+                swal.stopLoading();
+                swal.close();
+              }
+        })
+    }
+
     return (
         <div className="event_container">
             <div className="day_control">
@@ -139,9 +180,12 @@ const Schedule = () => {
                                                 {el.chair && (" By " + el.chair.name)}
                                             </div>
                                         </div>
-                                        {(el.content && el.content.abstract) && (
-                                            <button onClick={() => showSessionInfo(el)}>Details</button>
-                                        )}
+                                        <div>
+                                            {(user && user.admin === 1) && <button onClick={() => showUpdateWindow(el)}>Update</button>}
+                                            {(el.content && el.content.abstract) && (
+                                                <button onClick={() => showSessionInfo(el)}>Details</button>
+                                                )}
+                                        </div>
                                     </div>
                                 </div>
                             ))}

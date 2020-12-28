@@ -23,13 +23,16 @@ const Login = ({ setUser }) => {
 
     const login = () => {
         if(credentials.email !== "" && credentials.password !== ""){
-            axios.post(api_url + '/user/login', credentials).then((resp) => {
+            axios.post(api_url + '/user/login', JSON.stringify(credentials)).then((resp) => {
                 if(resp && resp.data){
-                    console.log(resp.data)
                     setUser(resp.data)
                 }
             }).catch(err => {
-                swal("Ops", err.response.data || "We couldn't log you in", "error")
+                let message = "We couldn't log you in";
+                if (err.response && err.response.data){
+                    message = err.response.data
+                }
+                swal("Ops", message, "error")
             })
         } else {
             swal("Form Error", "Please fill email and password correctly", "error")

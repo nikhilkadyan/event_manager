@@ -19,6 +19,8 @@ const Profile = ({ user, setUser }) => {
                     <b>username :</b> {user.username} <br />
                     <b>email :</b> {user.email} <br />
                     <b>admin :</b> {user.admin === 1 ? 'True' : 'False'} <br />
+
+                    {user.admin === 1 && <small><br />"You can now go to schedule section and update content."</small>}
                 </div>
             </div>
         </div>
