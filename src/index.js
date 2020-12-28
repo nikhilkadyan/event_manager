@@ -7,19 +7,19 @@ import './master.scss'
 import Navbar from './Components/Navbar'
 
 // Pages
-import Events from './Pages/Events'
+import Schedule from './Pages/Schedule'
 import Authors from './Pages/Authors'
-import Auth from './Pages/Auth'
+import Admin from './Pages/Admin'
 
 ReactDOM.render(
 	<React.StrictMode>
 		<Router>
 			<Navbar />
 			<Switch>
-				<Redirect from="/" to="/events" exact />
-				<Route path="/events" component={Events} />
+				<Redirect from="/" to="/schedule" exact />
+				<Route path="/schedule" component={Schedule} />
 				<Route path="/authors" component={Authors} />
-				<Route path="/auth" component={Auth} />
+				<Route path="/admin" component={Admin} />
 			</Switch>
 		</Router>
 	</React.StrictMode>,

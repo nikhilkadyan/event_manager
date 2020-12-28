@@ -6,7 +6,7 @@ import axios from 'axios';
 import api_url from '../../Service/api';
 import { FaChevronCircleLeft, FaChevronCircleRight, FaUserClock, FaMedal, FaTrophy } from 'react-icons/fa';
 
-const Events = () => {
+const Schedule = () => {
     const [ slots, setSlots ] = useState(null);
     const [ curSlot, setCurSlot ] = useState([]);
     const [ day, setDay ] = useState(1);
@@ -153,4 +153,4 @@ const Events = () => {
     )
 }
 
-export default Events;
+export default Schedule;

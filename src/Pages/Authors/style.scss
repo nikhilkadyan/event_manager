@@ -1,0 +1,86 @@
+.authors_container {
+    max-width: 100vw;
+    width: 100%;
+
+    .search_container {
+        max-width: 400px;
+        margin: 10px auto;
+        #search {
+            width: 100%;
+            border-radius: 4px;
+            font-size: 16px;
+            padding: 10px 20px;
+            outline: none;
+        }
+    }
+    .author_detail {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100vw;
+        background: rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .box {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+
+            padding: 10px;
+            min-height: 200px;
+            max-width: 450px;
+            width: 100%;
+            margin: 20px;
+            border-radius: 7px;
+            background: white;
+            box-shadow: 0 0 7px #aaa;
+            h3 { text-align: center; }
+            .session {
+                border: none;
+                box-shadow: 0 0 7px #ddd;
+                padding: 7px 10px;
+                background: none;
+                border-radius: 4px;
+                cursor: pointer;
+                outline: none;
+                transition: 0.3s;
+                &:hover {
+                    background: aquamarine;
+                }
+            }
+            .close {
+                color: white;
+                background: #f44336;
+                border: none;
+                outline: none;
+                border-radius: 4px;
+                cursor: pointer;
+                padding: 7px 10px;
+            }
+        }
+    }
+    .authors {
+        padding: 10px;
+        display: flex;
+        flex-wrap: wrap;
+
+        .author {
+            margin: 5px;
+            padding: 5px 7px;
+            border-radius: 7px;
+            box-shadow: 0 0 7px #ddd;
+            transition: 0.3s;
+            cursor: pointer;
+
+            &:hover {
+                color: white;
+                background: cornflowerblue;
+            }
+        }
+    }
+}
