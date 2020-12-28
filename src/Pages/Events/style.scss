@@ -72,7 +72,7 @@
                 flex-direction: column;
                 flex-wrap: wrap;
                 justify-content: center;
-                padding: 10px 20px;
+                padding: 10px 10px;
                 .session {
                     display: flex;
                     flex-direction: column;
@@ -87,7 +87,34 @@
                             color: crimson;
                         }
                     }
-                    small { font-weight: 300; }
+                    .footer {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        .info { 
+                            display: flex;
+                            flex-wrap: wrap;
+                            align-items: flex-start;
+                            font-weight: 100;
+                            font-size: 14px;
+                            div { padding-right:3px; }
+                        }
+                        button {
+                            min-width: 70px;
+                            border: none;
+                            outline: none;
+                            background: #eee;
+                            border-radius: 4px;
+                            padding: 7px 10px;
+                            transition: 0.3s;
+                            cursor: pointer;
+
+                            &:hover {
+                                color: white;
+                                background: cornflowerblue;
+                            }
+                        }
+                    }
                 }
             }
         }

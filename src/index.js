@@ -9,7 +9,6 @@ import Navbar from './Components/Navbar'
 // Pages
 import Events from './Pages/Events'
 import Authors from './Pages/Authors'
-import Awards from './Pages/Awards'
 import Auth from './Pages/Auth'
 
 ReactDOM.render(
@@ -20,7 +19,6 @@ ReactDOM.render(
 				<Redirect from="/" to="/events" exact />
 				<Route path="/events" component={Events} />
 				<Route path="/authors" component={Authors} />
-				<Route path="/awards" component={Awards} />
 				<Route path="/auth" component={Auth} />
 			</Switch>
 		</Router>

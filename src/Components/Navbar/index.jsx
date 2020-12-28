@@ -12,7 +12,6 @@ export default function index() {
             <div>
                 <NavLink activeClassName="active" to="/events"><FaCalendar /></NavLink>
                 <NavLink activeClassName="active" to="/authors"><FaUserAlt /></NavLink>
-                <NavLink activeClassName="active" to="/awards"><FaTrophy /></NavLink>
                 <NavLink activeClassName="active" to="/auth"><FaSignInAlt /></NavLink>
             </div>
         </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import swal from "sweetalert";
 import './style.scss';
 
 import axios from 'axios';
@@ -6,39 +7,50 @@ import api_url from '../../Service/api';
 import { FaChevronCircleLeft, FaChevronCircleRight, FaUserClock, FaMedal, FaTrophy } from 'react-icons/fa';
 
 const Events = () => {
-    const [ slots, setSlots ] = useState([]);
+    const [ slots, setSlots ] = useState(null);
     const [ curSlot, setCurSlot ] = useState([]);
     const [ day, setDay ] = useState(1);
 
     useEffect(() => {
-        axios.get(api_url + '/session').then(resp => {
-            if(resp && resp.data){
-                let raw = resp.data;
-                let slots = {};
-                raw.forEach(el => {
-                    if(slots[el.slot.id]){
-                        slots[el.slot.id]['sessions'].push(el) 
-                    } else {
-                        slots[el.slot.id] = {
-                            slot: el.slot,
-                            sessions: [el]
+        const fetchSlots = () => {
+            axios.get(api_url + '/session').then(resp => {
+                if(resp && resp.data){
+                    let raw = resp.data;
+                    let slots = {};
+                    raw.forEach(el => {
+                        if(slots[el.slot.id]){
+                            slots[el.slot.id]['sessions'].push(el) 
+                        } else {
+                            slots[el.slot.id] = {
+                                slot: el.slot,
+                                sessions: [el]
+                            }
                         }
-                    }
-                });
-                let arr = [];
-                Object.keys(slots).forEach((s) => {
-                    arr.push(slots[s]);
-                });
-                arr.sort((a, b) => {
-                    return a.slot.dayInt - b.slot.dayInt
-                })
-                setSlots(arr);
-                console.log(arr)
-                setCurSlot(arr.filter(a => a.slot.dayInt === day));
+                    });
+                    let arr = [];
+                    Object.keys(slots).forEach((s) => {
+                        arr.push(slots[s]);
+                    });
+                    arr.sort((a, b) => {
+                        return a.slot.dayInt - b.slot.dayInt
+                    })
+                    setSlots(arr);
+                    setCurSlot(arr.filter(a => a.slot.dayInt === 1));
+                }
+            })
+        }
+        if(slots){ 
+            sessionStorage.setItem("slots", JSON.stringify(slots))
+        } else {
+            let cache = JSON.parse(sessionStorage.getItem("slots"));
+            if(cache){
+                setSlots(cache)
+                setCurSlot(cache.filter(a => a.slot.dayInt === 1));
+            } else {
+                fetchSlots();
             }
-        })
-    // eslint-disable-next-line
-    }, [])
+        }
+    }, [slots])
 
     const nextDay = () => {
         if(day < 7){
@@ -78,6 +90,22 @@ const Events = () => {
         return <>{name}</>
     }
 
+    const showSessionInfo = (data) => {
+        let info = document.createElement("div");
+        info.style.textAlign = "justify";
+        info.style.fontSize = "13px";
+        info.style.fontWeight = "200";
+        info.innerText = data.content.abstract;
+        swal({
+            title: data.type.name.toUpperCase() + " in Room " + data.room.name,
+            // text: data.content.title,
+            content: info,
+            buttons: {
+                confirm: "Close",
+            }
+          });
+    }
+
     return (
         <div className="event_container">
             <div className="day_control">
@@ -101,13 +129,20 @@ const Events = () => {
                                             {" "}
                                             {el.content.title}
                                         </h4>)}
-                                    <small>
-                                        [ {el.type.name} ]
-                                        {" "}
-                                        {el.chair && ("[ By " + el.chair.name + " ]")}
-                                        {" "}
-                                        {(el.content && el.content.award !== "") && ("[ " + el.content.award + " ]")}
-                                    </small>
+                                    <div className="footer">
+                                        <div className="info">
+                                            <div style={{textTransform: "uppercase"}}>
+                                                {el.type.name}
+                                            </div>
+                                            {" "}
+                                            <div>
+                                                {el.chair && (" By " + el.chair.name)}
+                                            </div>
+                                        </div>
+                                        {(el.content && el.content.abstract) && (
+                                            <button onClick={() => showSessionInfo(el)}>Details</button>
+                                        )}
+                                    </div>
                                 </div>
                             ))}
                         </div>
