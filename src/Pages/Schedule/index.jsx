@@ -120,7 +120,7 @@ const Schedule = () => {
               closeModal: false,
             },
         }).then(title => {
-            if (!title) throw null;
+            if (!title) return false;
             return axios.post(api_url + '/content/update_title', JSON.stringify({
                 token: user.token,
                 id: data.content.contentId,
