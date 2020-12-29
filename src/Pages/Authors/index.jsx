@@ -15,7 +15,6 @@ const Authors = () => {
         const fetchAuthors = () => {
             axios.get(api_url + '/author').then(resp => {
                 if (resp && resp.data) {
-                    console.log(resp.data)
                     setAuthors(resp.data);
                     setFilteredAuthors(resp.data);
                 }

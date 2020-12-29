@@ -113,26 +113,40 @@ const Schedule = () => {
 
     const showUpdateWindow = (data) => {
         swal({
-            text: data.content.title,
-            content: "input",
-            button: {
-              text: "Enter new title!",
-              closeModal: false,
+            text: "Update Title",
+            content: {
+                element: "input",
+                attributes: {
+                    placeholder: "Enter title",
+                    value: data.content.title,
+                    type: "text",
+                },
             },
+            buttons: {
+                cancel: "Cancel",
+                confirm: "Update title"
+            }
         }).then(title => {
-            if (!title) return false;
-            return axios.post(api_url + '/content/update_title', JSON.stringify({
+            if (!title) {
+                swal.stopLoading();
+                swal.close();
+                return false;
+            };
+            axios.post(api_url + '/content/update_title', JSON.stringify({
                 token: user.token,
                 id: data.content.contentId,
                 title: title
-            }))
-        }).then(() => {
-            sessionStorage.removeItem("slots")
-            setSlots(null)
-            swal({
-                title: "Success",
-                text: "Title successfully updated",
-              });
+            })).then((resp) => {
+                if(resp && resp.data){
+                    sessionStorage.removeItem("slots")
+                    setSlots(null)
+                    setDay(1)
+                    swal({
+                        title: "Success",
+                        text: "Title successfully updated",
+                    });
+                }
+            })
         }).catch(err => {
             if (err) {
                 if(err.response && err.response.data){
